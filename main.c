@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "monty.h"
 
+int global;
 
 int main(int argc, char *argv[])
 {
@@ -14,14 +15,14 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf("USAGE: %s file\n", argv[0]);
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	filename = argv[1];
 	fp = fopen(filename, "r");
 	if (fp == NULL)
 	{
-		printf("Error: Can't open file %s\n", filename);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
@@ -30,7 +31,7 @@ int main(int argc, char *argv[])
 	elements = (char ***)malloc(num_lines * sizeof(char **));
 	if (elements == NULL)
 	{
-		printf("Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	
@@ -42,7 +43,7 @@ int main(int argc, char *argv[])
 			elements[i][j] = (char *)malloc((max_length + 1) * sizeof(char));
 			if (elements[i][j] == NULL)
 			{
-				printf("Memory allocation failed\n");
+				fprintf(stderr, "Memory allocation failed\n");
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -57,7 +58,6 @@ int main(int argc, char *argv[])
 				} else break;
 			}
 			elements[i][0][k] = '\0';
-			printf("%d",j);
 			for (j++, k = 0; line[j] != '\0' && line[j] != '$'; j++)
 			{
 				if (line[j] != ' ')
@@ -68,11 +68,7 @@ int main(int argc, char *argv[])
 			elements[i][1][k] = '\0';
 		}
 	}
-
-	for (i = 0; i < num_lines; i++)
-	{
-		compiler(elements, num_lines);
-	}
+	compiler(elements, num_lines);
 	free_array(fp, elements, num_lines);
 	return (0);
 }
