@@ -12,7 +12,7 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	if (global == 0 || sizeof(global) != sizeof(int))
 	{
-		fprintf(stderr, "L%d: usage: push\n", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	add_nodeint(stack, global);
