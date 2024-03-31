@@ -19,6 +19,7 @@ size_t print_stackt(const stack_t *h)
 		current = current->next;
 		n++;
 	}
+	if (n != 0) printf("%d\n", n - n);
 	return (n);
 }
 
