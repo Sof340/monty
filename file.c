@@ -16,20 +16,20 @@ int number_lines(FILE *fp, int *max_length)
 	num_lines = 0;
 	while (fgets(line, sizeof(line), fp) != NULL)
 	{
+		num_lines++;
 		if (line[0] != '\n')
 		{
-			num_lines++;
 			length_element = 0;
-			for (j = 0; line[j] != '$'; j++)
+			for (j = 0; line[j] != '\n'; j++)
 			{
 				if (line[j] != ' ')
 				{
 					length_element++;
 				}
-			}
-			if (length_element > *max_length)
-			{
-				*max_length = length_element;
+				if (length_element > *max_length)
+				{
+					*max_length = length_element;
+				}
 			}
 		}
 	}

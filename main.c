@@ -11,8 +11,9 @@ int main(int argc, char *argv[])
 	char line[100];
 	char ***elements;
 	int num_lines = 0;
-	int i, j, k, max_length;
+	int i, j, k, max_length, done;
 
+	done = 0;
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
@@ -50,23 +51,34 @@ int main(int argc, char *argv[])
 		fgets(line, sizeof(line), fp);
 		if (line[0] != '\n')
 		{
-			for (j = 0, k = 0; line[j] != '$'; j++)
+			for (j = 0, k = 0; line[j] != '\n'; j++)
 			{
 				if (line[j] != ' ')
 				{
 					elements[i][0][k++] = line[j];
-				} else break;
+					done = 1;
+				}else if (done == 1)
+				{
+					done = 0;
+					break;
+				}
 			}
-			elements[i][0][k] = '\0';
-			for (j++, k = 0; line[j] != '\0' && line[j] != '$'; j++)
+			for (j++, k = 0; line[j] != '\n'; j++)
 			{
 				if (line[j] != ' ')
 				{
 					elements[i][1][k++] = line[j];
+					done = 1;
+				}else if (done == 1){
+					done = 0;
+					break;
 				}
 			}
-			elements[i][1][k] = '\0';
 		}
+	}
+	for (i = 0; i < num_lines; i++)
+	{
+		printf(" %s + %s ", elements[i][0], elements[i][1]);
 	}
 	compiler(elements, num_lines);
 	free_array(fp, elements, num_lines);
