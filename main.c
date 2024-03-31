@@ -76,10 +76,6 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	for (i = 0; i < num_lines; i++)
-	{
-		printf(" %s + %s ", elements[i][0], elements[i][1]);
-	}
 	compiler(elements, num_lines);
 	free_array(fp, elements, num_lines);
 	return (0);
