@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
-
+	max_length = 0;
 	num_lines = number_lines(fp, &max_length);
 	rewind(fp);
 	elements = (char ***)malloc(num_lines * sizeof(char **));
@@ -39,12 +39,17 @@ int main(int argc, char *argv[])
 	for (i = 0; i < num_lines; i++)
 	{
 		elements[i] = (char **)malloc(2 * sizeof(char *));
+		if (elements[i] == NULL)
+		{
+			fprintf(stderr, "Error: malloc failed\n");
+			exit(EXIT_FAILURE);
+		}
 		for (j = 0; j < 2; j++)
 		{
-			elements[i][j] = (char *)malloc((max_length + 1) * sizeof(char));
+			elements[i][j] = (char *)malloc((max_length + 2) * sizeof(char));
 			if (elements[i][j] == NULL)
 			{
-				fprintf(stderr, "Memory allocation failed\n");
+				fprintf(stderr, "Error: malloc failed\n");
 				exit(EXIT_FAILURE);
 			}
 		}

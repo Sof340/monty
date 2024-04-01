@@ -36,7 +36,12 @@ void compiler(char ***elements, int num_lines)
 				{
 					pall(&stack, n_line);
 				}
+				break;
+			} else {
+				fprintf(stderr, "L%d: unknown instruction %s\n", n_line, elements[i][0]);
+				exit(EXIT_FAILURE);
 			}
+			
 		}
 	}
 }

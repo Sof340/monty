@@ -8,10 +8,11 @@
 size_t print_stackt(const stack_t *h)
 {
 	const stack_t *current;
-	unsigned int n; /* number of nodes */
+	unsigned int n;
 
 	current = h;
 	n = 0;
+	if (h == NULL) return (1);
 
 	while (current != NULL)
 	{
